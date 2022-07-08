@@ -177,7 +177,7 @@ Text of it:
 
 ## Installing and compiling.
 
-This repository does not have any building file, so just create project from Github in any IDE. Install SFML from https://www.sfml-dev.org/index.php.
+This is a Visual Studio project, so create project from github in it. Install SFML from https://www.sfml-dev.org/index.php.
 In `Source.cpp` find int main() {} function. To use orbit maneuver program, type there `orbits();` and compile. To use simulation programm, type `simulation();`
 and compile
 
