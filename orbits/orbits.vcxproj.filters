@@ -21,39 +21,6 @@
     <ClCompile Include="Object.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\geometry 3d.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Line3d.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Plane.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector2.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector3.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Math.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Some STL functions.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\String works and conversions\Conversions.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\String works and conversions\Some string functions.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
     <ClCompile Include="ProbeTrackingSpace.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -69,13 +36,43 @@
     <ClCompile Include="Space.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="MyLib\String works and conversions\Conversions.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\geometry 3d.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Line3d.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Math.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Plane.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Some STL functions.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\String works and conversions\Some string functions.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector2.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector3.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
       <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\MyLib\MyLib.h">
-      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
     <ClInclude Include="ProbeTrackingSpace.h">
       <Filter>Файлы заголовков</Filter>
@@ -86,20 +83,23 @@
     <ClInclude Include="Orbit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.h">
-      <Filter>Файлы ресурсов</Filter>
-    </ClInclude>
     <ClInclude Include="EventedAction.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector.h">
-      <Filter>Файлы ресурсов</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\MyLib\Math and data works\Math.h">
-      <Filter>Файлы ресурсов</Filter>
-    </ClInclude>
     <ClInclude Include="Space.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MyLib\Math and data works\Math.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
+    <ClInclude Include="MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
+    <ClInclude Include="MyLib\MyLib.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
+    <ClInclude Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

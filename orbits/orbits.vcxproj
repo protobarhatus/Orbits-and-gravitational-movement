@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\MyLib;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\MyLib;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\MyLib;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\MyLib;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,19 +151,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\geometry 3d.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Line3d.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Plane.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector2.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector3.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Math.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\Math and data works\Some STL functions.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\String works and conversions\Conversions.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\MyLib\String works and conversions\Some string functions.cpp" />
     <ClCompile Include="ButchersTable.cpp" />
     <ClCompile Include="EventedAction.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\geometry 3d.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Line3d.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Plane.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector2.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector3.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Math.cpp" />
+    <ClCompile Include="MyLib\Math and data works\Some STL functions.cpp" />
+    <ClCompile Include="MyLib\String works and conversions\Conversions.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\SFML\SFML-2.4.2\include;C:\SFML\SFML-2.4.2\include\SFML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="MyLib\String works and conversions\Some string functions.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Orbit.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -171,12 +176,12 @@
     <ClCompile Include="Space.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.h" />
-    <ClInclude Include="..\..\..\..\..\..\MyLib\Math and data works\Linear algebra and 3d geometry\Vector.h" />
-    <ClInclude Include="..\..\..\..\..\..\MyLib\Math and data works\Math.h" />
-    <ClInclude Include="..\..\..\..\..\..\MyLib\MyLib.h" />
     <ClInclude Include="ButchersTable.h" />
     <ClInclude Include="EventedAction.h" />
+    <ClInclude Include="MyLib\Math and data works\Linear algebra and 3d geometry\Matrix.h" />
+    <ClInclude Include="MyLib\Math and data works\Linear algebra and 3d geometry\Vector.h" />
+    <ClInclude Include="MyLib\Math and data works\Math.h" />
+    <ClInclude Include="MyLib\MyLib.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Orbit.h" />
     <ClInclude Include="ProbeTrackingSpace.h" />

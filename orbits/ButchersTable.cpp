@@ -1,7 +1,7 @@
 
 #include "ButchersTable.h"
 #include <assert.h>
-#include "MyLib.h"
+#include "MyLib/MyLib.h"
 #include <functional>
 ButchersTable::ButchersTable()
 {

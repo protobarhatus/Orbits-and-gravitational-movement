@@ -22,6 +22,10 @@ public:
 	Vector getObjectPosition(int index) const;
 	//is not necessary
 	void updateObjectsParams();
+
+	void setGravitational(long double g);
+
+	const Object& getObjectWithoutUpdatingParams(int i) const;
 protected:
 
 	long double time = 0;
@@ -33,7 +37,7 @@ protected:
 
 	std::vector<std::function<Vector(long double, const std::vector<Vector>&)>> integrating_functions;
 
-	const long double G = 1;
+	long double G = 1;
 
 };
 

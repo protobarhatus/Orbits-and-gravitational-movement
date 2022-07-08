@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "Math and data works/Linear algebra and 3d geometry/Vector.h"
-#include "Math and data works/Linear algebra and 3d geometry/Matrix.h"
+#include "MyLib/Math and data works/Linear algebra and 3d geometry/Vector.h"
+#include "MyLib/Math and data works/Linear algebra and 3d geometry/Matrix.h"
 #include <Graphics.hpp>
 class Orbit
 {

@@ -1,5 +1,5 @@
 #include <Graphics.hpp>
-#include "MyLib.h"
+#include "MyLib/MyLib.h"
 #include "Space.h"
 #include <chrono>
 #include "Orbit.h"
@@ -311,7 +311,7 @@ void drawScene(const Space& space, sf::RenderWindow& window, int screen_size, lo
 	{
 		Vector obj_pos = space.getObjectPosition(i);
 		Vector pos = fromSpaceToScreen(obj_pos, space_size, screen_size);
-		drawCircle(pos.x(), pos.y(), 15, sf::Color::Blue, &window);
+		drawCircle(pos.x(), pos.y(), space.getObjectWithoutUpdatingParams(i).getRadius(), space.getObjectWithoutUpdatingParams(i).getColor(), &window);
 	}
 	window.display();
 }
@@ -348,7 +348,7 @@ Object readPlanet()
 	return Object(mass, Vector(xpos, ypos), Vector(xvel, yvel), strToColor(color), rad, true);
 }
 
-int main()
+void simulation()
 {
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
@@ -372,20 +372,26 @@ int main()
 	for (int i = 0; i < amount_of_planets; ++i)
 		space.addPlanet(readPlanet());
 
-	std::cin >> space_size;
+	long double G;
+	std::cin >> space_size >> G;
 	std::cout << "Launching simulation!\n";
 
-
+	space.setGravitational(G);
 	space.prepareForSimulation();
 
 	drawScene(space, window, screen_size, space_size);
 	start = std::chrono::steady_clock::now();
 	while (true)
 	{
-		space.integrateStep(0.5);
+		space.integrateStep(0.1);
 
 		if (std::chrono::steady_clock::now() - start >= period)
 			drawScene(space, window, screen_size, space_size);
 	}
+}
+
+int main()
+{
+	simulation();
 	
 }

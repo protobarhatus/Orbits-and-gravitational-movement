@@ -71,6 +71,16 @@ void Space::updateObjectsParams()
 	}
 }
 
+void Space::setGravitational(long double g)
+{
+	this->G = g;
+}
+
+const Object& Space::getObjectWithoutUpdatingParams(int i) const
+{
+	return this->objects[i];
+}
+
 void Space::integrateStep(double step)
 {
 	this->objects_params = ButcherRkForSystem(this->integration_method, this->objects_params, this->time, step, this->integrating_functions);

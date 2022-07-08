@@ -1,7 +1,7 @@
 #include "ProbeTrackingSpace.h"
 #include <functional>
 #include <assert.h>
-#include "Math and data works/Math.h"
+#include "MyLib/Math and data works/Math.h"
 ProbeTrackingSpace::ProbeTrackingSpace()
 {
 	this->probes_orbit.setInterestingSpaceWidth(600);

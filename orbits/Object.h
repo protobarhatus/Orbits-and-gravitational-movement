@@ -1,5 +1,5 @@
 #pragma once
-#include "Math and data works/Linear algebra and 3d geometry/Vector.h"
+#include "MyLib/Math and data works/Linear algebra and 3d geometry/Vector.h"
 #include "Orbit.h"
 class ProbeTrackingSpace;
 class Object
