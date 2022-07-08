@@ -27,7 +27,6 @@ ButchersTable dormanPrince();
 ButchersTable gaussLegendreFourthOrder();
 ButchersTable tableForRK4();
 ButchersTable LStable3rdOrderImplicitRungeKutta();
-ButchersTable fifthOrderRadau();
 ButchersTable tableForRK6();
 ButchersTable inexplicitEuler();
 ButchersTable explicitEuler();

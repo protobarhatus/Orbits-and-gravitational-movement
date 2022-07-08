@@ -59,6 +59,7 @@ ButchersTable dormanPrince()
 	};
 	//2 is amount of output lines aka lines where nan("")
 	return ButchersTable(table, 2, true);
+#undef V
 
 }
 ButchersTable gaussLegendreFourthOrder()
@@ -71,6 +72,7 @@ ButchersTable gaussLegendreFourthOrder()
 		V{nan(""), 1.366025404, -0.3660254038}
 	};
 	return ButchersTable(table, 2, false);
+#undef V
 }
 
 ButchersTable tableForRK4()
@@ -84,6 +86,7 @@ ButchersTable tableForRK4()
 		V{std::nan(""), 1.0 / 6, 1.0 / 3, 1.0 / 3, 1.0 / 6}
 	};
 	return ButchersTable(table, 1, true);
+#undef V
 	
 }
 
@@ -100,6 +103,7 @@ ButchersTable tableForRK6()
 		V{std::nan(""), 16.0/135   ,    0        ,    6656.0/12825,    28561.0/56430,    -9.0/50,    2.0/ 55}
 	};
 	return ButchersTable(table, 1, true);
+#undef V
 }
 
 
@@ -115,18 +119,22 @@ ButchersTable LStable3rdOrderImplicitRungeKutta()
 		V{std::nan(""), 1.5, -1.5, 0.5, 0.5}
 	};
 	return ButchersTable(table, 1, false);
+#undef V
 }
 
 ButchersTable inexplicitEuler()
 {
+#define V std::vector<long double>
 	std::vector<std::vector<long double>> table = {
 		V{1, 1},
 		V{std::nan(""), 1}
 	};
 	return ButchersTable(table, 1, false);
+#undef V
 }
 ButchersTable explicitEuler()
 {
+#define V std::vector<long double>
 	std::vector<std::vector<long double>> table = {
 		V{0, 0},
 		V{std::nan(""), 1}
@@ -188,7 +196,7 @@ std::vector<Vector> ButcherRkForSystem(const ButchersTable& table, const std::ve
 	if (table.isExplicit())
 		return explicitButcherRkForSystem(table, start_values, t, step, funcs_for_each_var);
 	else
-		return inexplicitButcherRkForSystem(table, start_values, t, step, funcs_for_each_var);
+		throw "Only explicit methods are supported";
 }
 
 

@@ -7,6 +7,7 @@
 #include <string>
 #include <thread>
 #include <assert.h>
+#include "ProbeTrackingSpace.h"
 using namespace std::chrono;
 
 Vector fromSpaceToScreen(const Vector& pos, long double space_size, int screen_size)
@@ -193,134 +194,198 @@ static long double sqr(long double a)
 	return a * a;
 }
 
-int main()
+void executeCommand(ProbeTrackingSpace& space, int& space_size)
 {
+	if (isOrbitManeurCommand(request_type))
+	{
+		switch (request_type)
+		{
+		case HOHMANN:
+			space.getProbePtr()->executeHohmannManeuver(request_args_double[0] * length(space.getProbe().getPosition()));
+			break;
+		case BI_ELLIPTIC:
+			space.getProbePtr()->executeBiellipticManeuver(request_args_double[0], request_args_double[1]);
+			break;
+		case DOUBLE_PULSE:
+			space.getProbePtr()->executeDoublePulseManeuver(request_args_double[0], request_args_double[1]);
+			break;
+		default:
+			assert(false);
 
+		}
+		request_type = NONE;
+	}
+	else if (request_type != NONE)
+	{
+		switch (request_type)
+		{
+		case SET_WIDTH:
+			space_size = request_args_int[0];
+			space.getProbesOrbit().needToRedraw();
+			break;
+		case MULT_WIDTH:
+			space_size /= request_args_double[0];
+			space.getProbesOrbit().needToRedraw();
+			break;
+		case VELOCITY:
+			std::cout << "Velocity: " << round(length(space.getProbePtr()->getVelocity()) * 100) / 100 << "\n\n";
+			break;
+		case PULSE:
+			space.getProbePtr()->setVelocity(space.getProbePtr()->getVelocity() + space.getProbePtr()->getVelocity() / length(space.getProbePtr()->getVelocity()) * request_args_double[0]);
+			space.getProbesOrbit().orbitChanged();
+			break;
+		case RESTART:
+			space.getProbePtr()->setPosition(Vector(0, -100));
+			space.getProbePtr()->setVelocity(Vector(3.16227766, 0));
+			space.getProbesOrbit().orbitChanged();
+			break;
+		default:
+			assert(false);
+		}
+		request_type = NONE;
+	}
+}
+
+void drawOrbitsScene(ProbeTrackingSpace& space, sf::RenderWindow& window, int screen_size, long double space_size)
+{
+	window.clear();
+	Vector probe_screen = fromSpaceToScreen(space.getProbe().getPosition(), space_size, screen_size);
+	drawCircle(probe_screen.x(), probe_screen.y(), 5, sf::Color::Color(255, 255, 0), &window);
+	for (int i = 0; i < space.getAmountOfObjects(); ++i)
+	{
+		if (i == space.getProbeIndex())
+			continue;
+		Vector pos = fromSpaceToScreen(space.getPlanets()[i].getPosition(), space_size, screen_size);
+		drawCircle(pos.x(), pos.y(), 30, sf::Color::Blue, &window);
+	}
+	drawOrbit(space.getProbesOrbit(), space_size, screen_size, sf::Color::Red, &window);
+
+	std::stringstream probepos;
+	probepos << "R = " << round(length(space.getProbe().getPosition()));
+	HdrawString(probepos.str(), 0, 0, 20, &window, sf::Color::Red);
+
+	window.display();
+}
+
+void orbits()
+{
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
 	int screen_size = 1000;
 	sf::RenderWindow window(sf::VideoMode(screen_size, screen_size), "Plot", sf::Style::Default, settings);
 
-	
 
-	Space space;
+
+	ProbeTrackingSpace space;
 	space.addPlanet(getEarth(Vector(0, 0)));
-	space.setProbe(Object(1, Vector(0, -100), Vector(3.16227766, 0), Vector(0, 0)));
-	//space.setProbe(Object(1, Vector(0, -200), Vector(1, 0), Vector(0, 0)));
-	//space.setProbe(Object(1, Vector(0, 50), Vector(4, 0), Vector(0, 0)));
+	space.setProbe(Object(0.0001, Vector(0, -100), Vector(3.16227766, 0), sf::Color::Yellow, 5));
+	space.prepareForSimulation();
+
 	std::chrono::time_point<std::chrono::steady_clock> t1, start;
 	std::chrono::nanoseconds last_dif(0);
-	std::chrono::nanoseconds period = 1ms;
+	std::chrono::nanoseconds period = 33ms;
 
 	std::thread commands(recieveCommands);
 	commands.detach();
-
-	//int space_size = 6000e3;
-	int space_size = 600;
-
-
-
-	//Orbit orbit;
-	//orbit.setOrbit(5, 2, 1, -1e6, -1e6, -1e12);
+	//its size of space fragment that fits to the screen
+	long double space_size = 600;
+	drawOrbitsScene(space, window, screen_size, space_size);
+	start = std::chrono::steady_clock::now();
 	while (true)
 	{
-		window.clear();
-		start = std::chrono::steady_clock::now();
-		//DrImage canvas(1000, 1000);
-		//canvas.setWindow(&window);
-
-		
-
-		Vector probe_screen = fromSpaceToScreen(space.getProbe().getPosition(), space_size, screen_size);
-		//canvas.drawCircle(probe_screen.x(), probe_screen.y(), 10, sf::Color::Color(255, 255, 0));
-		drawCircle(probe_screen.x(), probe_screen.y(), 5, sf::Color::Color(255, 255, 0), &window);
-		for (auto& it : space.getPlanets())
-		{
-			Vector pos = fromSpaceToScreen(it.getPosition(), space_size, screen_size);
-			//canvas.drawCircle(pos.x(), pos.y(), 30, sf::Color::Blue);
-			drawCircle(pos.x(), pos.y(), 30, sf::Color::Blue, &window);
-		}
-		
-		//canvas.draw(0, 0);
-
-		//drawCircumference(500, 500, 1000 / 3, 3, sf::Color::Red, &window);
-
-		
-		drawOrbit(space.getProbesOrbit(), space_size, screen_size, sf::Color::Red, &window);
-		//if (space.getProbesOrbit().defined())
-		//	drawCircle(toSf(fromSpaceToScreen(space.getProbesOrbit().gravitationalCentre(), space_size, screen_size)), 5, sf::Color::Magenta, &window);
-
-		std::stringstream probepos;
-		probepos << "R = " << round(length(space.getProbe().getPosition()));
-		HdrawString(probepos.str(), 0, 0, 20, &window, sf::Color::Red);
-
-		window.display();
-		
 		space.integrateStep(0.1);
-		//if (equals(t, 250))
-			//space.getProbePtr()->executeHohmannManeur(2e6);
-			//space.getProbePtr()->executeHohmannManeur(200);
-		static int c = 0;
-		++c;
-		//if (c % 20 == 0)
-		//	std::cout << "Energy: " << sqr(length(space.getProbe().getVelocity())) / 2 - (1000.0 / length(space.getProbe().getPosition())) - space.getProbe().getPosition().x() * 0.0001 << std::endl;
-		if (isOrbitManeurCommand(request_type))
-		{
-
-				
-				switch (request_type)
-				{
-				case HOHMANN:
-					space.getProbePtr()->executeHohmannManeur(request_args_double[0] * length(space.getProbe().getPosition()));
-					break;
-				case BI_ELLIPTIC:
-					space.getProbePtr()->executeBiellipticManeur(request_args_double[0], request_args_double[1]);
-					break;
-				case DOUBLE_PULSE:
-					space.getProbePtr()->executeDoublePulseManeur(request_args_double[0], request_args_double[1]);
-					break;
-				default:
-					assert(false);
-					
-			}
-			request_type = NONE;
-		}
-		else if (request_type != NONE)
-		{
-			switch (request_type)
-			{
-			case SET_WIDTH:
-				space_size = request_args_int[0];
-				space.getProbesOrbit().needToRedraw();
-				break;
-			case MULT_WIDTH:
-				space_size /= request_args_double[0];
-				space.getProbesOrbit().needToRedraw();
-				break;
-			case VELOCITY:
-				std::cout << "Velocity: " << round(length(space.getProbePtr()->getVelocity()) * 100) / 100 << "\n\n";
-				break;
-			case PULSE:
-				space.getProbePtr()->setVelocity(space.getProbePtr()->getVelocity() + space.getProbePtr()->getVelocity() / length(space.getProbePtr()->getVelocity()) * request_args_double[0]);
-				space.getProbesOrbit().orbitChanged();
-				break;
-			case RESTART:
-				space.getProbePtr()->setPosition(Vector(0, -100));
-				space.getProbePtr()->setVelocity(Vector(3.16227766, 0));
-				space.getProbesOrbit().orbitChanged();
-				break;
-			default:
-				assert(false);
-			}
-			request_type = NONE;
-		}
-
-		//std::cout << (std::chrono::steady_clock::now() - start).count() << std::endl;
-		while (std::chrono::steady_clock::now() - start < period)
-			;
+		
+		if (std::chrono::steady_clock::now() - start >= period)
+			drawOrbitsScene(space, window, screen_size, space_size);
 	}
 
+
 	
-	return 0;
+}
+
+void drawScene(const Space& space, sf::RenderWindow& window, int screen_size, long double space_size)
+{
+	window.clear();
+	for (int i = 0; i < space.getAmountOfObjects(); ++i)
+	{
+		Vector obj_pos = space.getObjectPosition(i);
+		Vector pos = fromSpaceToScreen(obj_pos, space_size, screen_size);
+		drawCircle(pos.x(), pos.y(), 15, sf::Color::Blue, &window);
+	}
+	window.display();
+}
+
+sf::Color strToColor(const std::string& str)
+{
+	if (str == "white")
+		return sf::Color::White;
+	if (str == "red")
+		return sf::Color::Red;
+	if (str == "green")
+		return sf::Color::Green;
+	if (str == "yellow")
+		return sf::Color::Yellow;
+	if (str == "magenta")
+		return sf::Color::Magenta;
+	if (str == "cyan")
+		return sf::Color::Cyan;
+	if (str == "orange")
+		return sf::Color(255, 106, 0);
+	if (str == "blue")
+		return sf::Color(0, 0, 255);
+	if (str == "light_blue")
+		return sf::Color(22, 135, 255);
+	std::cout << "wrong color: blue used\n";
+	return sf::Color(0, 0, 255);
+}
+Object readPlanet()
+{
+	long double mass, xpos, ypos, xvel, yvel;
+	std::string color;
+	int rad;
+	std::cin >> mass >> xpos >> ypos >> xvel >> yvel >> color >> rad;
+	return Object(mass, Vector(xpos, ypos), Vector(xvel, yvel), strToColor(color), rad, true);
+}
+
+int main()
+{
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+
+	int screen_size = 1000;
+	sf::RenderWindow window(sf::VideoMode(screen_size, screen_size), "Plot", sf::Style::Default, settings);
+
+	std::chrono::time_point<std::chrono::steady_clock> t1, start;
+	std::chrono::nanoseconds last_dif(0);
+	std::chrono::nanoseconds period = 33ms;
+
+	//its size of space fragment that fits to the screen
+	long double space_size = 5000;
+
+	Space space;
+
+
+	int amount_of_planets;
+	std::cin >> amount_of_planets;
+
+	for (int i = 0; i < amount_of_planets; ++i)
+		space.addPlanet(readPlanet());
+
+	std::cin >> space_size;
+	std::cout << "Launching simulation!\n";
+
+
+	space.prepareForSimulation();
+
+	drawScene(space, window, screen_size, space_size);
+	start = std::chrono::steady_clock::now();
+	while (true)
+	{
+		space.integrateStep(0.5);
+
+		if (std::chrono::steady_clock::now() - start >= period)
+			drawScene(space, window, screen_size, space_size);
+	}
+	
 }

@@ -54,7 +54,7 @@
     <ClCompile Include="..\..\..\..\..\..\MyLib\String works and conversions\Some string functions.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="Space.cpp">
+    <ClCompile Include="ProbeTrackingSpace.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ButchersTable.cpp">
@@ -66,6 +66,9 @@
     <ClCompile Include="EventedAction.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Space.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -74,7 +77,7 @@
     <ClInclude Include="..\..\..\..\..\..\MyLib\MyLib.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="Space.h">
+    <ClInclude Include="ProbeTrackingSpace.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="ButchersTable.h">
@@ -95,5 +98,13 @@
     <ClInclude Include="..\..\..\..\..\..\MyLib\Math and data works\Math.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
+    <ClInclude Include="Space.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="solar.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
   </ItemGroup>
 </Project>

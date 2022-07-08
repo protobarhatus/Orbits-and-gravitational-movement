@@ -1,10 +1,10 @@
 #include "Object.h"
 #include <functional>
 #include <assert.h>
-#include "Space.h"
+#include "ProbeTrackingSpace.h"
 #include "EventedAction.h"
-Object::Object(double mass, const Vector& pos, const Vector& vel, const Vector& acc, bool movable) :
-	mass(mass), position(pos), velocity(vel), acceleration(acc)
+Object::Object(double mass, const Vector& pos, const Vector& vel, sf::Color color, int pix_rad, bool movable) :
+	mass(mass), position(pos), velocity(vel), color(color), radius(pix_rad)
 {
 
 }
@@ -20,7 +20,7 @@ void Object::setOrbitPtr(Orbit* orbit)
 	this->orbit = orbit;
 }
 
-void Object::setSpacePtr(Space* space)
+void Object::setSpacePtr(ProbeTrackingSpace* space)
 {
 	this->space = space;
 }
@@ -60,7 +60,7 @@ void Object::setAcceleration(const Vector& acceleration)
 	this->acceleration = acceleration;
 }
 #include <iostream>
-void Object::executeHohmannManeur(long double r2)
+void Object::executeHohmannManeuver(long double r2)
 {
 	//assert(this->orbit->getType() == Orbit::CIRCLE);
 
@@ -83,7 +83,7 @@ void Object::executeHohmannManeur(long double r2)
 	
 	long double t1 = this->space->getTime();
 
-	Space* sp = space;
+	ProbeTrackingSpace* sp = space;
 
 	this->space->addEvent(EventedAction(r < 1 ? EventedAction::APHELION : EventedAction::PERIHELION, [this, orb, V1, r, sp, t1]()->bool {
 		std::cout << "Hohmann: second impuls\n";
@@ -114,7 +114,7 @@ void Object::executeHohmannManeur(long double r2)
 
 }
 
-void Object::executeBiellipticManeur(long double r, long double b)
+void Object::executeBiellipticManeuver(long double r, long double b)
 {
 	long double V = length(this->getVelocity());
 	long double DV1 = V * (sqrt(2 - 2 / (1 + b)) - 1);
@@ -131,7 +131,7 @@ void Object::executeBiellipticManeur(long double r, long double b)
 
 	Orbit* orb = this->orbit;
 
-	Space* space = this->space;
+	ProbeTrackingSpace* space = this->space;
 	this->space->addEvent(EventedAction((b > 1 ? EventedAction::APHELION : EventedAction::PERIHELION), [DV2, DV3, orb, space, this, b, r]()->bool {
 		long double cur_V = length(this->getVelocity());
 		std::cout << "Bi-elliptic: second impuls\n";
@@ -155,7 +155,7 @@ void Object::executeBiellipticManeur(long double r, long double b)
 		}));
 }
 
-void Object::executeDoublePulseManeur(long double r, long double dv_to_v)
+void Object::executeDoublePulseManeuver(long double r, long double dv_to_v)
 {
 	long double V1 = length(this->getVelocity());
 	long double DV = dv_to_v * V1;
@@ -177,7 +177,7 @@ void Object::executeDoublePulseManeur(long double r, long double dv_to_v)
 
 	long double t1 = space->getTime();
 
-	Space* sp = this->space;
+	ProbeTrackingSpace* sp = this->space;
 
 	this->space->addEvent(distanceReachedEvent(r2, [V1, DV, r1, r2, vr1, vV1, this, r, dv_to_v, orb, t1, sp]()->bool {
 		std::cout << "Double-pulse maneur: second impuls\n";
@@ -205,8 +205,22 @@ void Object::executeDoublePulseManeur(long double r, long double dv_to_v)
 	//
 }
 
+bool Object::movable() const
+{
+	return this->is_movable;
+}
+
+sf::Color Object::getColor() const
+{
+	return this->color;
+}
+
+int Object::getRadius() const
+{
+	return this->radius;
+}
+
 Object getEarth(const Vector& position)
 {
-	//return Object(5.9722e24, position, position.null(), position.null(), false);
-	return Object(1000, position, position.null(), position.null(), false);
+	return Object(1000, position, position.null(), sf::Color::Blue, 30, false);
 }

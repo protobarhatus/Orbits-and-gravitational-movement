@@ -167,6 +167,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Orbit.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="ProbeTrackingSpace.cpp" />
     <ClCompile Include="Space.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +179,11 @@
     <ClInclude Include="EventedAction.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Orbit.h" />
+    <ClInclude Include="ProbeTrackingSpace.h" />
     <ClInclude Include="Space.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="solar.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
