@@ -1,4 +1,4 @@
-# orbits
+# Orbits and gravitational movement
 This is a light project  using C++ with SFML. It provides an engine to simulate gravitational movement with few extra features about *transfer orbits* like
 *Bi-elliptic transfer*, *Hohmann transfer orbit* or arbitrary double-pulse maneuver. There is two ready programms, but it also
 can be used as a library.
