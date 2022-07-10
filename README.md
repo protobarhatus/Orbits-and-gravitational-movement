@@ -61,7 +61,7 @@ function:
 Vector ButcherRK(const ButchersTable& table, int result_string, Vector d, long double t, long double step, const std::function < Vector(long double, const Vector&)>& f,
 	std::vector<std::pair<double, Vector>> * saved_values_at_proceeded_times = nullptr);
 ```
-where `table` is integration method, `result_string` is what line of `b` params in ButcherTable will be used (almost always its 1), `d` is t<sub>0</sub>,
+where `table` is integration method, `result_string` is what line of `b` params in ButcherTable will be used (almost always its 0), `d` is t<sub>0</sub>,
 `f` is `f(t, y)`, `saved_values_at_proceeded_times` is optional parameter. If its not nullptr, then values of y(t<sub>0</sub> + _b1 * step_),
 y(t<sub>0</sub> + _b1 * step + b2 * step_) etc will be saved there (object must be created and deleted externally).
 
